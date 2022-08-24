@@ -1,0 +1,24 @@
+#######YOLOV3-TINY
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+%cd /content
+!unzip /content/drive/'My Drive'/YOLOV3-TINY/darknet.zip
+%cd /content/darknet
+
+%cd /content/darknet
+!sudo apt install dos2unix
+!dos2unix train.txt
+!dos2unix val.txt
+!dos2unix yolo.data
+
+!make
+!chmod +x ./darknet
+
+!rm /content/darknet/backup -r
+!ln -s /content/drive/'My Drive'/YOLOV3-TINY/backup /content/darknet
+
+%cd /content/darknet
+!./darknet detector train yolo.data cfg/yolov3-tiny.cfg yolov3-tiny.conv.15
+
